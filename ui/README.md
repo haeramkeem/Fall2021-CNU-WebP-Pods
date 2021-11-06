@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-npm install
+npm ci && git restore .
 ```
 
 ### Compiles and hot-reloads for development
