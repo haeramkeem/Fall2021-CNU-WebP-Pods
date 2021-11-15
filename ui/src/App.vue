@@ -8,11 +8,11 @@
                     </a>
                 </h1>
                 <nav class="col-12 col-lg">
-                    <router-link to="/difficulty" class="open-sans router-link">
+                    <router-link to="/difficulty" class="open-sans font-bold router-link">
                         by difficulty
                     </router-link>
                     <span> | </span>
-                    <router-link to="/topic" class="open-sans router-link">
+                    <router-link to="/topic" class="open-sans font-bold router-link">
                         by topic
                     </router-link>
                 </nav>
@@ -21,6 +21,9 @@
         <main>
             <router-view></router-view>
         </main>
+        <footer class="fira-sans font-bold">
+            copyright©saltwalks2021
+        </footer>
     </div>
 </template>
 
@@ -80,5 +83,14 @@ nav {
         font-size: 24px;
         color: white;
     }
+}
+
+footer {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: lightgray;
+    position: fixed;
+    top: calc(100% - 20px);
 }
 </style>
