@@ -10,7 +10,7 @@
 <template>
     <div class="container-auto no-pad" id="mini-calendar">
         <div class="row align-items-center justify-content-center">
-            <div v-if="this.minify" class="col-auto open-sans font-bold" id="mini-scale">{{strWeekDay}}, {{strFullDate}}</div>
+            <div v-if="this.minify" class="col-auto open-sans font-bold" id="mini-scale">{{strWeekDay}}, {{strDate}}</div>
             <div v-else class="col-auto no-pad" id="full-scale">
                 <button class="arrow-btn" id="yesterday-btn" @click="gotoYesterday"></button>
                 <div class="text-center" id="day-date">
