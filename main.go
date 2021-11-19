@@ -3,22 +3,23 @@ package main
 import (
 	"fmt"
 
-	"github.com/gocolly/colly"
+	"github.com/gocolly/colly/v2"
 )
 
 func main() {
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.AllowedDomains("hackerspaces.org", "wiki.hackerspaces.org"),
+	)
 
-	// add HTML tag callback
 	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-		e.Request.Visit(e.Attr("href"))
+		link := e.Attr("href")
+		fmt.Printf("Link found: %q -> %s\n", e.Text, link)
+		c.Visit(e.Request.AbsoluteURL(link))
 	})
 
-	// add on request callback
 	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL)
+		fmt.Println("Visiting", r.URL.String())
 	})
 
-	// visiting website
-	c.Visit("http://go-colly.org/")
+	c.Visit("https://hackerspaces.org/")
 }
