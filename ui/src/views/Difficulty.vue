@@ -7,7 +7,7 @@
             </div>
             <div class="row main-row">
                 <div class="col problem-box no-pad">
-                    <h2 class="fira-sans font-bold">Easy Problem of the Day</h2>
+                    <h2 class="fira-sans font-bold">{{selectedDifficulty}} Problem of the Day</h2>
                     <article>TODO: fetch problem</article>
                 </div>
                 <div class="col discussion-box no-pad">
@@ -46,6 +46,7 @@ export default defineComponent({
     data() {
         return {
             radioItems: ["easy", "medium", "hard"],
+            selectedDifficulty: "EASY",
         };
     },
     methods: {
@@ -57,6 +58,7 @@ export default defineComponent({
         },
         onRadioClicked(idx: number) {
             console.warn("TODO: radiobox changed to " + this.radioItems[idx]);
+            this.selectedDifficulty = this.radioItems[idx].toUpperCase();
         },
     },
 });

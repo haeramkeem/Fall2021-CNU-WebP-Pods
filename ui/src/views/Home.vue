@@ -6,8 +6,8 @@
             </div>
             <div class="row main-row">
                 <div class="col problem-box no-pad">
-                    <h2 class="fira-sans font-bold">Easy Problem of the Day</h2>
-                    <article>TODOL fetch problem</article>
+                    <h2 class="fira-sans font-bold">Problem of the Day</h2>
+                    <article>TODO: fetch problem</article>
                 </div>
                 <div class="col discussion-box no-pad">
                     <div class="container no-pad">
