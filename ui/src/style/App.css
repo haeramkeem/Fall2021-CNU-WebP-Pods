@@ -1,3 +1,6 @@
+/**
+ * Font
+ */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
@@ -17,6 +20,9 @@
     font-family: 'Fira Sans Condensed', sans-serif;
 }
 
+/**
+ * Display
+ */
 .hidden {
     position:absolute !important;
     width:1px;
@@ -26,6 +32,9 @@
     clip:rect(1px, 1px, 1px, 1px);
 }
 
+/**
+ * Box model
+ */
 .no-pad {
     padding: 0px;
 }
