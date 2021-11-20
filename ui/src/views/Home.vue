@@ -7,7 +7,10 @@
             <div class="row main-row">
                 <div class="col problem-box no-pad">
                     <h2 class="fira-sans font-bold">Problem of the Day</h2>
-                    <article>TODO: fetch problem</article>
+                    <article>
+                        <a :href="this.problemLink" target="_blank"><h3>{{this.problemTitle}}</h3></a>
+                        <div id="fetched-problem"></div>
+                    </article>
                 </div>
                 <div class="col discussion-box no-pad">
                     <div class="container no-pad">
@@ -32,13 +35,21 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import MiniCalendar from '../components/MiniCalendar.vue';
+import { td } from 'typedef';
+import axios from 'axios';
 
 export default defineComponent({
     name: "Home",
     components: {
         MiniCalendar,
+    },
+    data() {
+        return {
+            problemTitle: "",
+            problemLink: "",
+        };
     },
     methods: {
         onDateChanged(date: Date) {
@@ -47,6 +58,22 @@ export default defineComponent({
         onLanguageChanged(lang: string) {
             console.warn("TODO: language changed to " + lang);
         },
+    },
+    created() {
+        axios.get("/api/main/problem")
+        .then((resp) => {
+            const refined = resp.data as td.ProblemStruct;
+            if(typeof refined.error === "string") {
+                throw new Error(refined.error);
+            } else {
+                this.problemTitle = refined.title;
+                this.problemLink = refined.link;
+                const target = document.getElementById("fetched-problem") as HTMLElement;
+                target.innerHTML = refined.content;
+            }
+        }).catch((err) => {
+            alert(err);
+        });
     },
 });
 </script>
@@ -67,6 +94,7 @@ article {
 
 .problem-box>article {
     border-right: 1px solid black;
+    padding: 15px;
 }
 
 .discussion-box>h2 {

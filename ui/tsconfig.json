@@ -10,8 +10,14 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "typeRoots": [
+      "@types",
+      "./node_modules/@types"
+    ],
     "types": [
       "webpack-env"
     ],
@@ -32,7 +38,9 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "@types",
+    "typedef"
   ],
   "exclude": [
     "node_modules"
