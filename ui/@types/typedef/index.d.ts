@@ -1,5 +1,6 @@
 declare module "typedef" {
-    export namespace td {
-        type ProblemStruct = { error: null | string, title: string, link: string, content: string, };
+    export default namespace td {
+        type ProblemStruct = { title: string, link: string, description: string, };
+        type ResponseStruct = { error: null | string, content: ProblemStruct, };
     }
 }
