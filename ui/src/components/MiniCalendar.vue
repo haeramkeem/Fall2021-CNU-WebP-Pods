@@ -41,7 +41,7 @@ export default defineComponent({
     },
     methods: {
         emitDateChanged() {
-            this.$emit("dateChanged", date);
+            this.$emit("dateChanged", this.strDate);
         },
         updateCal() {
             this.strDate = this.dtos(date);
