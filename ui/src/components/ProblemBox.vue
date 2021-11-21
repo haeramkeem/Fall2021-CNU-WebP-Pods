@@ -1,6 +1,6 @@
 <template>
     <div class="col no-pad">
-        <h2 class="fira-sans font-bold">{{refinedPrefix}}Problem of the Day</h2>
+        <h2 class="fira-sans font-bold">{{refinedPrefix + ' '}}Problem of the Day</h2>
         <article>
             <a href="this.problem.link" target="_blank"><h3>{{this.problem.title}}</h3></a>
             <div id="fetched-problem"></div>
