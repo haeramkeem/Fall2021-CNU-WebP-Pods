@@ -14,15 +14,25 @@
                 </div>
             </h2>
         </div>
-        <article>TODO: fetch discussion</article>
+        <article>
+            <div v-if="this.discussion.alt" class="fetch-nothing bebas-neue">
+                <h3><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
+                <a :href="this.discussion.alt" target="_blank" class="alt-link">Show me althernative link instead..</a>
+            </div>
+            <div v-else>TODO: fetch discussions more than 1</div>
+        </article>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import td from 'typedef';
 
 export default defineComponent({
     name: "DiscussionBox",
+    props: {
+        discussion: Object as PropType<td.DiscussionStruct>,
+    },
     methods: {
         onLanguageChanged(lang: string): void {
             this.$emit("langChanged", lang);
@@ -38,7 +48,7 @@ export default defineComponent({
 h2 {
     font-size: 28px;
     border-bottom: 1px solid black;
-    margin: 0px 15px;
+    margin: 0px 15px 8px 15px;
 }
 
 .lang-select {
@@ -58,4 +68,16 @@ h2 {
 .lang-select>select {
     all: unset;
 }
+
+article {
+    padding: 0px 15px;
+}
+
+.fetch-nothing {
+    text-align: center;
+    color: #FF5733;
+}
+ .alt-link {
+     font-size: 18px;
+ }
 </style>

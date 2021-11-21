@@ -6,7 +6,7 @@
             </div>
             <div class="row main-row">
                 <problem-box :problem="this.problem"/>
-                <discussion-box @langChanged="onLanguageChanged"/>
+                <discussion-box @langChanged="onLanguageChanged" :discussion="this.discussion"/>
             </div>
         </div>
     </div>
@@ -31,25 +31,35 @@ export default defineComponent({
     data() {
         return {
             problem: {} as td.ProblemStruct,
+            discussion: {} as td.DiscussionStruct,
         };
     },
     methods: {
-        onDateChanged(date: Date) {
-            console.warn("TODO: react to date change " + date.toString());
-            axios.get("/api/main/problem")
+        onDateChanged(date: string) {
+            axios.get("/api/main/problem?date=" + date)
             .then((resp) => {
-                const refined = resp.data as td.ResponseStruct;
-                if(typeof refined.error === "string") {
-                    throw new Error(refined.error);
+                const data = resp.data as td.ResponseStruct;
+                if(typeof data.error === "string") {
+                    throw new Error(data.error);
                 } else {
-                    this.problem = refined.content;
+                    this.problem = data.content as td.ProblemStruct;
                 }
             }).catch((err) => {
                 alert(err);
             });
         },
         onLanguageChanged(lang: string) {
-            console.warn("TODO: language changed to " + lang);
+            axios.get("/api/main/discussion?lang=" + lang)
+            .then((resp) => {
+                const data = resp.data as td.ResponseStruct;
+                if(typeof data.error === "string") {
+                    throw new Error(data.error);
+                } else {
+                    this.discussion = data.content as td.DiscussionStruct;
+                }
+            }).catch((err) => {
+                alert(err);
+            });
         },
     },
 });

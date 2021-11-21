@@ -2,7 +2,7 @@
  * Font
  */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css");
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Sans+Condensed:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
 .open-sans {
     font-family: 'Open Sans', sans-serif;
@@ -18,6 +18,10 @@
 
 .fira-sans {
     font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.bebas-neue {
+    font-family: 'Bebas Neue', cursive;
 }
 
 /**
