@@ -29,4 +29,32 @@ if(process.env.NODE_ENV === "development") {
         };
         return [200, body];
     });
+
+    mock.onGet(/\/api\/difficulty\/problem.*/).reply((req) => {
+        console.log("[Mock:Req] " + req.url);
+        const body = {
+            error: null,
+            content: {
+                title: "TODO: fetch problem from Leetcode.com",
+                link: "https://leetcode.com/problemset/all/",
+                description: "<div>Dickhead</div>",
+            },
+        };
+
+        return [200, body];
+    });
+
+    mock.onGet(/\/api\/difficulty\/discussion.*/).reply((req) => {
+        console.log("[Mock:Req]" + req.url);
+        const body = {
+        error: null,
+        content: {
+            alt: "",
+            links: [
+                { title: "TODO: fetch discussion from Leetcode.com", link: "https://leetcode.com/problemset/all", },
+            ],
+        },
+        };
+        return [200, body];
+    });
 }
