@@ -15,4 +15,7 @@
 # vendor/
 
 # Build result
-PODs
+pods_amd64
+
+# Ignore MacOS setup
+.DS_Store

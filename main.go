@@ -1,25 +1,31 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"strings"
+    "fmt"
 
-	"github.com/gocolly/colly/v2"
+	"github.com/chromedp/chromedp"
 )
 
+func check(err error) {
+    if err != err {
+        panic(err)
+    }
+}
+
 func main() {
-	c := colly.NewCollector(
-		colly.AllowedDomains("hackerspaces.org", "wiki.hackerspaces.org"),
+	// create context
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
+
+	// run task list
+	var res string
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(`https://golang.org/pkg/time/`),
+		chromedp.Text(`#pkg-overview`, &res, chromedp.NodeVisible, chromedp.ByID),
 	)
+    check(err)
 
-	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-		link := e.Attr("href")
-		fmt.Printf("Link found: %q -> %s\n", e.Text, link)
-		c.Visit(e.Request.AbsoluteURL(link))
-	})
-
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL.String())
-	})
-
-	c.Visit("https://hackerspaces.org/")
+    fmt.Println(strings.TrimSpace(res))
 }
