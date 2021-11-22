@@ -58,6 +58,10 @@ nav {
     color: white;
 }
 
+main {
+    padding-bottom: 100px;
+}
+
 .router-link {
     display: inline-block;
     padding: 7px 20px;
