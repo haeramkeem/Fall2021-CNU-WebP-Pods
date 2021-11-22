@@ -1,8 +1,8 @@
 // Show mini calendar below the header
-//      props:
+//      @props:
 //          minify: Boolean
 //              Size of mini calendar
-//      emit:
+//      @emit:
 //          event name: dateChanged
 //          parameter:
 //              Date: changed date object
@@ -40,36 +40,62 @@ export default defineComponent({
         };
     },
     methods: {
-        emitDateChanged() {
+        /**
+         * Alert to parent when date change detected
+         */
+        emitDateChanged(): void {
             this.$emit("dateChanged", this.strDate);
         },
-        updateCal() {
+        /**
+         * Update calendar text
+         */
+        updateCal(): void {
             this.strDate = this.dtos(date);
             this.weekDay = date.getDay();
             this.emitDateChanged();
         },
-        gotoYesterday() {
+        /**
+         * Calculate date of day before
+         */
+        gotoYesterday(): void {
             date.setDate(date.getDate() - 1);
             this.updateCal();
         },
-        gotoTommorow() {
+        /**
+         * Calculate date of day after
+         */
+        gotoTommorow(): void {
             date.setDate(date.getDate() + 1);
             this.updateCal();
         },
-        itos(digit: number) {
+        /**
+         * Convert integer to two-digit string
+         * @params digit: number
+         * @return string
+         */
+        itos(digit: number): string {
             if(digit < 10) {
                 return "0" + digit;
             }
             return "" + digit;
         },
-        dtos(target: Date) {
+        /**
+         * Convert date object to YYMMDD string
+         * @params target: Date
+         * @return string
+         */
+        dtos(target: Date): string {
             return this.itos(target.getFullYear() - 2000) +
                 this.itos(target.getMonth() + 1) +
                 this.itos(target.getDate());
         },
     },
     computed: {
-        strWeekDay() {
+        /**
+         * Convert current day of the week (integer to string)
+         * @return string
+         */
+        strWeekDay(): string {
             const week = [
                 "SUNDAY",
                 "MONDAY",
@@ -81,12 +107,17 @@ export default defineComponent({
             ];
             return week[this.weekDay];
         },
-        isToday() {
+        /**
+         * If current date is today
+         * @return boolean
+         */
+        isToday(): boolean {
             const today = new Date();
             return this.strDate === this.dtos(today);
         },
     },
-    created() {
+    created(): void {
+        // Init current date to today
         this.strDate = this.dtos(date);
         this.emitDateChanged();
     },

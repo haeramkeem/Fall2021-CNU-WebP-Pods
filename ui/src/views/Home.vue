@@ -1,3 +1,6 @@
+// Main page
+//      @path: /
+
 <template>
     <div>
         <div class="container">
@@ -35,7 +38,11 @@ export default defineComponent({
         };
     },
     methods: {
-        onDateChanged(date: string) {
+        /**
+         * GET problem for selected date
+         * @params date: string
+         */
+        onDateChanged(date: string): void {
             axios.get("/api/main/problem?date=" + date)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
@@ -48,7 +55,11 @@ export default defineComponent({
                 alert(err);
             });
         },
-        onLanguageChanged(lang: string) {
+        /**
+         * GET discussion for selected language
+         * @params lang: string
+         */
+        onLanguageChanged(lang: string): void {
             axios.get("/api/main/discussion?lang=" + lang)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;

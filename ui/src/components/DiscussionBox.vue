@@ -1,3 +1,12 @@
+// Discussion box component
+//      @props:
+//          discussion: DiscussionStruct
+//              Object containing an alternative link and the discussion links
+//      @emit:
+//          event name: langChanged
+//          parameter:
+//              String: changed language name
+
 <template>
     <div class="col no-pad">
         <div class="container no-pad">
@@ -17,7 +26,7 @@
         <article>
             <div v-if="this.discussion.alt" class="fetch-nothing">
                 <h3 class="bebas-neue"><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
-                <a :href="this.discussion.alt" target="_blank" class="alt-link bebas-neue">Show me althernative link instead..</a>
+                <a :href="this.discussion.alt" target="_blank" class="alt-link bebas-neue">Show me alternative link instead..</a>
             </div>
             <div v-else>
                 <ul>
@@ -40,11 +49,15 @@ export default defineComponent({
         discussion: Object as PropType<td.DiscussionStruct>,
     },
     methods: {
+        /**
+         * Alert to parent when language changed
+         */
         onLanguageChanged(lang: string): void {
             this.$emit("langChanged", lang);
         }
     },
-    created() {
+    created(): void {
+        // Init selected langauge to "all"
         this.$emit("langChanged", "all");
     },
 });

@@ -1,3 +1,6 @@
+// Page for problem difficulty
+//      @path: /difficulty
+
 <template>
     <div>
         <div class="container">
@@ -40,6 +43,10 @@ export default defineComponent({
         };
     },
     methods: {
+        /**
+         * GET discussion for selected language
+         * @params lang: string
+         */
         onLanguageChanged(lang: string): void {
             axios.get("/api/difficulty/discussion?lang=" + lang)
             .then((resp) => {
@@ -53,6 +60,10 @@ export default defineComponent({
                 alert(err);
             });
         },
+        /**
+         * GET problem for selected difficulty
+         * @params idx: number
+         */
         onRadioClicked(idx: number): void {
             axios.get("/api/difficulty/problem?level=" + idx)
             .then((resp) => {
@@ -69,6 +80,7 @@ export default defineComponent({
         },
     },
     created(): void {
+        // Init page with first radio item clicked
         this.onRadioClicked(0);
     }
 });

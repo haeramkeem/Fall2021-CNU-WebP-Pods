@@ -1,3 +1,6 @@
+// Page for problem topic
+//      @path: /topic
+
 <template>
     <div>
         <div class="container">
@@ -40,6 +43,10 @@ export default defineComponent({
         };
     },
     methods: {
+        /**
+         * GET discussion for selected language
+         * @params lang: string
+         */
         onLanguageChanged(lang: string): void {
             axios.get("/api/topic/discussion?lang=" + lang)
             .then((resp) => {
@@ -53,8 +60,12 @@ export default defineComponent({
                 alert(err);
             });
         },
+        /**
+         * GET problem for selected topic
+         * @params idx: number
+         */
         onRadioClicked(idx: number): void {
-            axios.get("/api/topic/problem?level=" + idx)
+            axios.get("/api/topic/problem?topic=" + idx)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
                 if(typeof data.error === "string") {
@@ -69,6 +80,7 @@ export default defineComponent({
         },
     },
     created(): void {
+        // Init page with first radio item clicked
         this.onRadioClicked(0);
     }
 });

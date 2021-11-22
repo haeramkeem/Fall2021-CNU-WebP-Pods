@@ -1,3 +1,12 @@
+// Problem Box component
+//      @props:
+//          titlePrefix: string?
+//              Prefix of the header-2
+//          problem: ProblemStruct
+//              Object containing title, link and th description of the problem
+//      @emit:
+//          none
+
 <template>
     <div class="col no-pad">
         <h2 class="fira-sans font-bold">{{this.refinedPrefix}}Problem of the Day</h2>
@@ -19,11 +28,16 @@ export default defineComponent({
         problem: Object as PropType<td.ProblemStruct>,
     },
     computed: {
-        refinedPrefix() {
+        /**
+         * Check if title prefix is undefined
+         * @return string
+         */
+        refinedPrefix(): string {
             return this.titlePrefix ? this.titlePrefix.toUpperCase() + ' ' : "";
         },
     },
     updated() {
+        // Redefine size of <img> tag to fit in
         document.querySelectorAll("img").forEach((el) => {
             el.style.width = "500px";
             el.style.height = "auto";

@@ -1,3 +1,11 @@
+// Radio component
+//      @props: string[]
+//          Labels for radio items
+//      @emit:
+//          event name: radioClicked
+//          parameter:
+//              int: Index of clicked radio item
+
 <template>
     <ul class="d-inline-block">
         <li v-for="(item, idx) in radioItems" v-bind:key="idx" @click="onClick(idx)" class="d-inline-block">
@@ -21,13 +29,21 @@ export default defineComponent({
         };
     },
     methods: {
-        onClick(idx: number) {
+        /*
+         * Alert to parent when radio item is clicked
+         * @params idx: number
+         */
+        onClick(idx: number): void {
             this.selected = idx;
             this.$emit("radioClicked", idx);
         }
     },
     computed: {
-        radioItems() {
+        /*
+         * Convert radio items to upper case letter
+         * @return string[]
+         */
+        radioItems(): string[] {
             if(this.items instanceof Array) {
                 return this.items.map((val) => val.toUpperCase());
             }
