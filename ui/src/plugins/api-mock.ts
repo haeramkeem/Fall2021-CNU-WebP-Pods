@@ -97,7 +97,20 @@ Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also a
         content: {
             alt: "",
             links: [
-                { title: "TODO: fetch discussion from Leetcode.com", link: "https://leetcode.com/problemset/all", },
+                { title: "✔️[C++] Shortest Recursive Solution | Detailed Explanation with images", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590789/C%2B%2B-Shortest-Recursive-Solution-or-Detailed-Explanation-with-images", },
+                { title: "✅ [C++] Simple Solution w/ Images & Detailed Explanation | Iterative & Recursive Approach", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591176/C%2B%2B-Simple-Solution-w-Images-and-Detailed-Explanation-or-Iterative-and-Recursive-Approach", },
+                { title: "✔ JAVA | Recursive | Most Intutive | Proper Explanation Using Image", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590868/JAVA-or-Recursive-or-Most-Intutive-or-Proper-Explanation-Using-Image", },
+                { title: "C++ Short and Simple Recursive Solution, Detailed Explanation", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590757/C%2B%2B-Short-and-Simple-Recursive-Solution-Detailed-Explanation", },
+                { title: "Python solution without predecessor and successor", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591048/Python-solution-without-predecessor-and-successor", },
+                { title: "C++ || Recursive || Iterative || Detailed and simple solution", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590768/C%2B%2B-oror-Recursive-oror-Iterative-oror-Detailed-and-simple-solution", },
+                { title: "[C++] Recursive Solution", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590935/C%2B%2B-Recursive-Solution", },
+                { title: "[C++] Explained Solution || Recursive Approach", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591316/C%2B%2B-Explained-Solution-oror-Recursive-Approach", },
+                { title: "JAVA --> 100 % faster || recursive", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590970/JAVA-greater-100-faster-oror-recursive", },
+                { title: "c clean", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591416/c-clean", },
+                { title: "C++ with comments", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591393/C%2B%2B-with-comments", },
+                { title: "C++ || 90% Faster Recursive Solution || Easy to Understand", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591309/C%2B%2B-oror-90-Faster-Recursive-Solution-oror-Easy-to-Understand", },
+                { title: "Recursive sol with all conditions explained through diagrams & commented code in O(H)time", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1591208/Recursive-sol-with-all-conditions-explained-through-diagrams-and-commented-code-in-O(H)time", },
+                { title: "[Python] Tree height complexity, iterative, explained", link: "https://leetcode.com/problems/delete-node-in-a-bst/discuss/1590983/Python-Tree-height-complexity-iterative-explained", },
             ],
         },
         };

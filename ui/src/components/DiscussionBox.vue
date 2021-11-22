@@ -19,7 +19,13 @@
                 <h3><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
                 <a :href="this.discussion.alt" target="_blank" class="alt-link">Show me althernative link instead..</a>
             </div>
-            <div v-else>TODO: fetch discussions more than 1</div>
+            <div v-else>
+                <ul>
+                    <li v-for="(item, idx) in this.discussion.links" v-bind:key="idx">
+                        <a :href="item.link" class="disc-link" target="_blank">{{item.title}}</a>
+                    </li>
+                </ul>
+            </div>
         </article>
     </div>
 </template>
@@ -80,4 +86,24 @@ article {
  .alt-link {
      font-size: 18px;
  }
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+li {
+    padding: 9px 0px;
+    border-bottom: 1px solid lightgray;
+}
+
+.disc-link {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.disc-link:hover {
+    text-decoration: underline;
+}
 </style>
