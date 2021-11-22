@@ -1,10 +1,10 @@
 <template>
     <div class="col no-pad">
         <div class="container no-pad">
-            <h2 class="row fira-sans font-bold justify-content-between align-items-center">
-                <div class="no-pad col-auto">Discussions</div>
+            <h2 class="row justify-content-between align-items-center">
+                <div class="no-pad col-auto fira-sans font-bold">Discussions</div>
                 <div class="no-pad col-auto lang-select">
-                    <span>LANGUAGE</span>
+                    <span class="fira-sans font-bold">LANGUAGE</span>
                     <select @change="onLanguageChanged($event.target.value)"> 
                         <option value="all">All</option>
                         <option value="cpp">C++</option>
@@ -15,9 +15,9 @@
             </h2>
         </div>
         <article>
-            <div v-if="this.discussion.alt" class="fetch-nothing bebas-neue">
-                <h3><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
-                <a :href="this.discussion.alt" target="_blank" class="alt-link">Show me althernative link instead..</a>
+            <div v-if="this.discussion.alt" class="fetch-nothing">
+                <h3 class="bebas-neue"><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
+                <a :href="this.discussion.alt" target="_blank" class="alt-link bebas-neue">Show me althernative link instead..</a>
             </div>
             <div v-else>
                 <ul>
@@ -60,7 +60,7 @@ h2 {
 .lang-select {
     font-size: 18px;
     border: 2px solid #285CBF;
-    height: 23px;
+    height: 24px;
     padding-right: 15px;
 }
 
@@ -83,9 +83,10 @@ article {
     text-align: center;
     color: #FF5733;
 }
- .alt-link {
-     font-size: 18px;
- }
+
+.alt-link {
+    font-size: 24px;
+}
 
 ul {
     list-style: none;
