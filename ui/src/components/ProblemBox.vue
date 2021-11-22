@@ -2,7 +2,7 @@
     <div class="col no-pad">
         <h2 class="fira-sans font-bold">{{this.refinedPrefix}}Problem of the Day</h2>
         <article>
-            <a href="this.problem.link" target="_blank"><h3>{{this.problem.title}}</h3></a>
+            <a :href="this.problem.link" target="_blank"><h3>{{this.problem.title}}</h3></a>
             <div id="fetched-problem" v-html="this.problem.description"></div>
         </article>
     </div>
