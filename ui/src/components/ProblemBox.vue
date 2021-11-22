@@ -1,9 +1,9 @@
 <template>
     <div class="col no-pad">
-        <h2 class="fira-sans font-bold">{{refinedPrefix + ' '}}Problem of the Day</h2>
+        <h2 class="fira-sans font-bold">{{this.refinedPrefix}}Problem of the Day</h2>
         <article>
             <a href="this.problem.link" target="_blank"><h3>{{this.problem.title}}</h3></a>
-            <div id="fetched-problem"></div>
+            <div id="fetched-problem" v-html="this.problem.description"></div>
         </article>
     </div>
 </template>
@@ -20,13 +20,15 @@ export default defineComponent({
     },
     computed: {
         refinedPrefix() {
-            return this.titlePrefix ? this.titlePrefix.toUpperCase() : "";
+            return this.titlePrefix ? this.titlePrefix.toUpperCase() + ' ' : "";
         },
     },
-    beforeUpdate() {
-        const target = document.getElementById("fetched-problem") as HTMLElement;
-        target.innerHTML = (this.problem as td.ProblemStruct).description;
-    },
+    updated() {
+        document.querySelectorAll("img").forEach((el) => {
+            el.style.width = "500px";
+            el.style.height = "auto";
+        });
+    }
 });
 </script>
 
