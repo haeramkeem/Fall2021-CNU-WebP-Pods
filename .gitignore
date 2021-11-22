@@ -19,3 +19,6 @@ pods_amd64
 
 # Ignore MacOS setup
 .DS_Store
+
+# Ignore testing HTML
+/*.html
