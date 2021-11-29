@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -30,19 +29,22 @@ func FetchProblemByTopic(topic string) (string, error) {
     defer cancel()
 
     // Get an url path
-    paths := make([]map[string]string, 0)
+    nodes := make([]map[string]string, 0)
     topic = urlify[topic]
-    fmt.Println(BASE + `/tag/` + topic)
+
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(BASE + `/tag/` + topic),
-        chromedp.AttributesAll(`div.title-cell__ZGos>a[href]`, &paths, chromedp.NodeVisible, chromedp.ByQueryAll),
+        chromedp.AttributesAll(`div.title-cell__ZGos>*:last-child`, &nodes, chromedp.NodeVisible, chromedp.ByQueryAll),
 	)
     if err != nil { return "", err }
-    idx, err := getRand(int64(len(paths)))
-    if err != nil { return "", err }
-    path := paths[idx]["href"]
 
-    fmt.Println(path)
+    var path string
+    exs := false
+    for !exs {
+        idx, err := getRand(len(nodes))
+        if err != nil { return "", err }
+        path, exs = nodes[idx]["href"]
+    }
 
     // Fetch problem content
     var html string
