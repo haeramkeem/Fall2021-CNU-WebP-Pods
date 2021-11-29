@@ -15,8 +15,6 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-const BASE string = `https://leetcode.com`
-
 func getDataValue() string {
     now := time.Now()
     prefix := now.Format(time.UnixDate)[:10]
@@ -24,6 +22,7 @@ func getDataValue() string {
 }
 
 func FetchMain() (string, error) {
+    const BASE string = `https://leetcode.com`;
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
