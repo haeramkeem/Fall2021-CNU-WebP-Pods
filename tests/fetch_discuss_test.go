@@ -7,7 +7,7 @@ import (
     "pods/service"
 )
 
-func TestFetchMainDiscuss(t *testing.T) {
+func TestFetchDiscuss(t *testing.T) {
     res, err := service.FetchDiscuss("/problems/accounts-merge/", "")
     check(err)
 

@@ -2,19 +2,11 @@ package service
 
 import (
 	"context"
-	"crypto/rand"
-	"math/big"
 	"strings"
 	"time"
 
 	"github.com/chromedp/chromedp"
 )
-
-// Generate Random number
-func getRand(max int64) (int, error) {
-    rand, err := rand.Int(rand.Reader, big.NewInt(max))
-    return int(rand.Int64()), err
-}
 
 func FetchProblemByDifficulty(diff string) (string, error) {
     const BASE string = `https://leetcode.com`;
