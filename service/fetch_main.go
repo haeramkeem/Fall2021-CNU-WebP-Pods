@@ -36,11 +36,8 @@ func FetchMain() (string, error) {
 		chromedp.Navigate(BASE + `/problemset/all`),
         chromedp.AttributeValue(getDataValue(), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
 	)
-    if err != nil {
-        return "", err;
-    } else if !ok {
-        return "", errors.New("Fail to navigate")
-    }
+    if err != nil { return "", err }
+    if !ok { return "", errors.New("Fail to navigate") }
 
     // Fetch problem content
     var html string
@@ -48,9 +45,7 @@ func FetchMain() (string, error) {
         chromedp.Navigate(BASE + path),
         chromedp.InnerHTML(`div.content__u3I1`, &html, chromedp.NodeVisible, chromedp.ByQuery),
     )
-    if err != nil {
-        return "", err
-    }
+    if err != nil { return "", err }
 
     return html, nil
 }
