@@ -29,7 +29,7 @@ func FetchProblemByDifficulty(diff string) (string, error) {
         chromedp.AttributesAll(`button.jsx-784799233>div.truncate>a[href]`, &paths, chromedp.NodeVisible, chromedp.ByQueryAll),
 	)
     if err != nil { return "", err }
-    idx, err := getRand(int64(len(paths)))
+    idx, err := getRand(len(paths))
     if err != nil { return "", err }
     path := paths[idx]["href"]
 
