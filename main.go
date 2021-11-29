@@ -3,7 +3,7 @@ package main
 import (
 	"log"
     "pods/service"
-    "pods/controller"
+    _ "pods/controller"
 )
 
 func main() {
@@ -12,5 +12,5 @@ func main() {
 
     service.Fetch()
 
-    controller.Routing()
+    //controller.Routing()
 }

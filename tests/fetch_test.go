@@ -7,12 +7,6 @@ import (
     "pods/service"
 )
 
-func check(err error) {
-    if err != nil {
-        panic(err)
-    }
-}
-
 func TestFetchMainProblem(t *testing.T) {
     res, err := service.FetchMain()
     check(err)
