@@ -8,7 +8,7 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func FetchMainDiscuss(path, query string) ([]string, error) {
+func FetchDiscuss(path, query string) ([]string, error) {
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()

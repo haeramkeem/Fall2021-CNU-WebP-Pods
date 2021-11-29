@@ -1,25 +1,14 @@
 package tests
 
 import (
-    "fmt"
     "testing"
+    "fmt"
 
     "pods/service"
 )
 
-func TestFetchMainProblem(t *testing.T) {
-    res, err := service.FetchMain()
-    check(err)
-
-    if res == "" {
-        t.Error("Want HTML, got nothing")
-    }
-
-    fmt.Println(res)
-}
-
 func TestFetchMainDiscuss(t *testing.T) {
-    res, err := service.FetchMainDiscuss("/problems/accounts-merge/", "")
+    res, err := service.FetchDiscuss("/problems/accounts-merge/", "")
     check(err)
 
     if len(res) == 0 {
@@ -29,7 +18,7 @@ func TestFetchMainDiscuss(t *testing.T) {
     fmt.Println("----- All -----")
     fmt.Println(res)
 
-    res, err = service.FetchMainDiscuss("/problems/accounts-merge/", "cpp")
+    res, err = service.FetchDiscuss("/problems/accounts-merge/", "cpp")
     check(err)
 
     if len(res) == 0 {
@@ -39,7 +28,7 @@ func TestFetchMainDiscuss(t *testing.T) {
     fmt.Println("----- C++ -----")
     fmt.Println(res)
 
-    res, err = service.FetchMainDiscuss("/problems/accounts-merge/", "python")
+    res, err = service.FetchDiscuss("/problems/accounts-merge/", "python")
     check(err)
 
     if len(res) == 0 {
@@ -49,7 +38,7 @@ func TestFetchMainDiscuss(t *testing.T) {
     fmt.Println("----- Python -----")
     fmt.Println(res)
 
-    res, err = service.FetchMainDiscuss("/problems/accounts-merge/", "java")
+    res, err = service.FetchDiscuss("/problems/accounts-merge/", "java")
     check(err)
 
     if len(res) == 0 {
