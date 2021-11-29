@@ -22,7 +22,6 @@ func getDataValue() string {
 }
 
 func FetchMain() (string, error) {
-    const BASE string = `https://leetcode.com`;
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()

@@ -15,7 +15,7 @@ func FetchDiscuss(path, query string) ([]string, error) {
     ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
     defer cancel()
 
-    url := fmt.Sprintf("https://leetcode.com%sdiscuss/?currentPage=1&orderBy=hot&query=%s", path, query)
+    url := fmt.Sprintf("%s%sdiscuss/?currentPage=1&orderBy=hot&query=%s", BASE, path, query)
 
     // Get all attributes
     res := make([]map[string]string, 0)
