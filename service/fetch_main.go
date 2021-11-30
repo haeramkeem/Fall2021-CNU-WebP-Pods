@@ -10,7 +10,6 @@ import (
 	"context"
     "fmt"
     "time"
-    "errors"
 
 	"github.com/chromedp/chromedp"
 )
@@ -30,17 +29,17 @@ func FetchMain() (string, error) {
 
     // Get an url path
     var path string
-    var ok bool
-	err := chromedp.Run(ctx,
-		chromedp.Navigate(BASE + `/problemset/all`),
-        chromedp.AttributeValue(getDataValue(), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
-	)
-    if err != nil { return "", err }
-    if !ok { return "", errors.New("Fail to navigate") }
+    for ok := false; !ok; {
+        err := chromedp.Run(ctx,
+            chromedp.Navigate(BASE + `/problemset/all`),
+            chromedp.AttributeValue(getDataValue(), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
+        )
+        if err != nil { return "", err }
+    }
 
     // Fetch problem content
     var html string
-    err = chromedp.Run(ctx,
+    err := chromedp.Run(ctx,
         chromedp.Navigate(BASE + path),
         chromedp.InnerHTML(`div.content__u3I1`, &html, chromedp.NodeVisible, chromedp.ByQuery),
     )
