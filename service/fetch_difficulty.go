@@ -19,12 +19,9 @@ func FetchProblemByDifficulty(diff string) (string, error) {
     paths := make([]map[string]string, 0)
     diff = strings.ToUpper(diff)
 	err := chromedp.Run(ctx,
-        // GOTO problems by difficulty page
 		chromedp.Navigate(BASE + `/problemset/all/?difficulty=` + diff + `&page=1`),
-        // Waiting for all nodes to visible
         chromedp.WaitVisible(`nav>button.pointer-events-none`, chromedp.NodeVisible, chromedp.ByQuery),
-        // Get all hyperlinks
-        chromedp.AttributesAll(`button.jsx-784799233>div.truncate>a[href]`, &paths, chromedp.NodeVisible, chromedp.ByQueryAll),
+        chromedp.AttributesAll(`div[class="jsx-784799233 overflow-hidden"]:last-child a[href]`, &paths, chromedp.NodeVisible, chromedp.ByQueryAll),
 	)
     if err != nil { return "", err }
     idx, err := getRand(len(paths))
