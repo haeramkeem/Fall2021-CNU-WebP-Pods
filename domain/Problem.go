@@ -12,3 +12,9 @@ type Problem struct {
     Link        string
     Description string
 }
+
+type ProblemJSON struct {
+    Title       string  `json:"title"`
+    Link        string  `json:"link"`
+    Description string  `json:"description"`
+}
