@@ -9,6 +9,10 @@ case "$cmd" in
         cd ./ui && npm run serve
         ;;
 
+    --api-dev)
+        go run main.go
+        ;;
+
     # Build
     --build-amd64)
         env GOOS=linux GOARCH=amd64 go build -o pods_amd64
