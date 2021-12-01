@@ -3,54 +3,77 @@ package service
 import (
 	"context"
 	"time"
+    "pods/domain"
+    "pods/modules/errors"
 
-	"github.com/chromedp/chromedp"
+	cdp "github.com/chromedp/chromedp"
 )
 
 var urlify = map[string]string{
-    "bfs":      "breadth-first-search/",
-    "dfs":      "depth-first-search/",
-    "dp":       "dynamic-programming/",
-    "tp":       "two-pointers/",
-    "sort":     "sorting/",
-    "bsearch":  "binary-search/",
-    "tree":     "tree/",
-    "heap":     "heap-priority-queue/",
-    "string":   "string/",
+    "0":    "breadth-first-search/",
+    "1":    "depth-first-search/",
+    "2":    "dynamic-programming/",
+    "3":    "two-pointers/",
+    "4":    "sorting/",
+    "5":    "binary-search/",
+    "6":    "tree/",
+    "7":    "heap-priority-queue/",
+    "8":    "string/",
 }
 
-func FetchProblemByTopic(topic string) (string, error) {
+var topicConstantOf = map[string]uint{
+    "0":    BFS,
+    "1":    DFS,
+    "2":    DP,
+    "3":    TWO_POINTER,
+    "4":    SORT,
+    "5":    BINARY_SEARCH,
+    "6":    TREE,
+    "7":    HEAP,
+    "8":    STRING,
+}
+
+func FetchProblemByTopic(topic string) *domain.ProblemDB {
 	// create context
-	ctx, cancel := chromedp.NewContext(context.Background())
+	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
     ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
     defer cancel()
 
     // Get an url path
     nodes := make([]map[string]string, 0)
-    topic = urlify[topic]
+    tag := urlify[topic]
 
-	err := chromedp.Run(ctx,
-		chromedp.Navigate(BASE + `/tag/` + topic),
-        chromedp.AttributesAll(`div.title-cell__ZGos>*:last-child`, &nodes, chromedp.NodeVisible, chromedp.ByQueryAll),
+	err := cdp.Run(ctx,
+		cdp.Navigate(BASE + `/tag/` + tag),
+        cdp.AttributesAll(`div.title-cell__ZGos>*:last-child`, &nodes, cdp.NodeVisible, cdp.ByQueryAll),
 	)
-    if err != nil { return "", err }
+    errors.Check(err)
 
-    var path string
-    exs := false
-    for !exs {
+    path := ""
+    for exs := false; !exs || path == ""; {
         idx, err := getRand(len(nodes))
-        if err != nil { return "", err }
+        errors.Check(err)
         path, exs = nodes[idx]["href"]
     }
 
     // Fetch problem content
-    var html string
-    err = chromedp.Run(ctx,
-        chromedp.Navigate(BASE + path),
-        chromedp.InnerHTML(`div.content__u3I1`, &html, chromedp.NodeVisible, chromedp.ByQuery),
-    )
-    if err != nil { return "", err }
+    html := ""
+    title := ""
+    for html == "" || title == "" {
+        err = cdp.Run(ctx,
+            cdp.Navigate(BASE + path),
+            cdp.InnerHTML(`div.content__u3I1`, &html, cdp.NodeVisible, cdp.ByQuery),
+            cdp.Text(`div[data-cy="question-title"]`, &title, cdp.NodeVisible, cdp.ByQuery),
+        )
+        errors.Check(err)
+    }
 
-    return html, nil
+    return &domain.ProblemDB{
+        Date: nowStrDate(),
+        Category: topicConstantOf[topic],
+        Title: title,
+        Link: BASE + path,
+        Description: html,
+    }
 }
