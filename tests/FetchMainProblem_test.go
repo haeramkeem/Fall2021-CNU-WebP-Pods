@@ -8,7 +8,7 @@ import (
 )
 
 func TestFetchMainProblem(t *testing.T) {
-    res, err := service.FetchMain()
+    res, err := service.FetchMain("211201")
     check(err)
 
     if res == "" {

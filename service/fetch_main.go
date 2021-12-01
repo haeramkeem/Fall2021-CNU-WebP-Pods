@@ -14,13 +14,13 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func getDataValue() string {
-    now := time.Now()
-    prefix := now.Format(time.UnixDate)[:10]
-    return fmt.Sprintf("a[data-value=\"%s %d 00:00:00 GMT+0900 (Korean Standard Time)\"]", prefix, now.Year())
+func getDataValue(strDate string) string {
+    t := ParseStrDate(strDate)
+    prefix := t.Format(time.RubyDate)[:10]
+    return fmt.Sprintf("a[data-value=\"%s %d 00:00:00 GMT+0900 (Korean Standard Time)\"]", prefix, t.Year())
 }
 
-func FetchMain() (string, error) {
+func FetchMain(strDate string) (string, error) {
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
@@ -32,7 +32,7 @@ func FetchMain() (string, error) {
     for ok := false; !ok; {
         err := chromedp.Run(ctx,
             chromedp.Navigate(BASE + `/problemset/all`),
-            chromedp.AttributeValue(getDataValue(), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
+            chromedp.AttributeValue(getDataValue(strDate), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
         )
         if err != nil { return "", err }
     }
