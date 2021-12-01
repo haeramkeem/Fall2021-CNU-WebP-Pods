@@ -4,37 +4,59 @@ import (
 	"context"
 	"strings"
 	"time"
+    "pods/domain"
+    "pods/modules/errors"
 
-	"github.com/chromedp/chromedp"
+	cdp "github.com/chromedp/chromedp"
 )
 
-func FetchProblemByDifficulty(diff string) (string, error) {
+var constantOf = map[string]uint{
+    "EASY":     EASY,
+    "MEDIUM":   MEDIUM,
+    "HARD":     HARD,
+}
+
+func FetchProblemByDifficulty(level string) *domain.ProblemDB {
 	// create context
-	ctx, cancel := chromedp.NewContext(context.Background())
+	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
+
     ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
     defer cancel()
 
     // Get an url path
     paths := make([]map[string]string, 0)
-    diff = strings.ToUpper(diff)
-	err := chromedp.Run(ctx,
-		chromedp.Navigate(BASE + `/problemset/all/?difficulty=` + diff + `&page=1`),
-        chromedp.WaitVisible(`nav>button.pointer-events-none`, chromedp.NodeVisible, chromedp.ByQuery),
-        chromedp.AttributesAll(`div[class="jsx-784799233 overflow-hidden"]:last-child a[href]`, &paths, chromedp.NodeVisible, chromedp.ByQueryAll),
+    level = strings.ToUpper(level)
+
+	err := cdp.Run(ctx,
+		cdp.Navigate(BASE + `/problemset/all/?difficulty=` + level + `&page=1`),
+        cdp.WaitVisible(`nav>button.pointer-events-none`, cdp.NodeVisible, cdp.ByQuery),
+        cdp.AttributesAll(`div[class="jsx-784799233 overflow-hidden"]:last-child a[href]`, &paths, cdp.NodeVisible, cdp.ByQueryAll),
 	)
-    if err != nil { return "", err }
+    errors.Check(err)
+
     idx, err := getRand(len(paths))
-    if err != nil { return "", err }
+    errors.Check(err)
+
     path := paths[idx]["href"]
 
     // Fetch problem content
-    var html string
-    err = chromedp.Run(ctx,
-        chromedp.Navigate(BASE + path),
-        chromedp.InnerHTML(`div.content__u3I1`, &html, chromedp.NodeVisible, chromedp.ByQuery),
-    )
-    if err != nil { return "", err }
+    html := ""
+    title := ""
+    for html == "" || title == "" {
+        err = cdp.Run(ctx,
+            cdp.Navigate(BASE + path),
+            cdp.InnerHTML(`div.content__u3I1`, &html, cdp.NodeVisible, cdp.ByQuery),
+            cdp.Text(`div[data-cy="question-title"]`, &title, cdp.NodeVisible, cdp.ByQuery),
+        )
+        errors.Check(err)
+    }
 
-    return html, nil
+    return &domain.ProblemDB{
+        Date: nowStrDate(),
+        Category: constantOf[level],
+        Title: title,
+        Link: BASE + path,
+        Description: html,
+    }
 }

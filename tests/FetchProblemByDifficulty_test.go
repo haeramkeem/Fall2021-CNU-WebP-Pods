@@ -8,33 +8,10 @@ import (
 )
 
 func TestFetchProblemByDifficulty(t *testing.T) {
-    res, err := service.FetchProblemByDifficulty("easy")
-    check(err)
+    res := service.FetchProblemByDifficulty("easy")
 
-    if len(res) == 0 {
-        t.Error("Want HTML, got nothing")
-    }
-
-    fmt.Println("----- EASY -----")
-    fmt.Println(res)
-
-    res, err = service.FetchProblemByDifficulty("medium")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want HTML, got nothing")
-    }
-
-    fmt.Println("----- MEDIUM -----")
-    fmt.Println(res)
-
-    res, err = service.FetchProblemByDifficulty("hard")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want HTML, got nothing")
-    }
-
-    fmt.Println("----- HARD -----")
-    fmt.Println(res)
+    fmt.Println(res.Date);
+    fmt.Println(res.Title)
+    fmt.Println(res.Link)
+    fmt.Println(res.Description)
 }

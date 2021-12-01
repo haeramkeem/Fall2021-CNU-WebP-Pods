@@ -11,7 +11,7 @@ import (
 )
 
 func getDataValue(strDate string) string {
-    t := ParseStrDate(strDate)
+    t := parseStrDate(strDate)
     prefix := t.Format(time.RubyDate)[:10]
     return fmt.Sprintf("a[data-value=\"%s %d 00:00:00 GMT+0900 (Korean Standard Time)\"]", prefix, t.Year())
 }

@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/rand"
+	"fmt"
 	"math/big"
 	"strconv"
 	"time"
@@ -30,7 +31,7 @@ var monthOf = map[string]time.Month{
     "12":   time.December,
 }
 
-func ParseStrDate(strDate string) time.Time {
+func parseStrDate(strDate string) time.Time {
     strYear := strDate[:2]
     strMonth := strDate[2:4]
     strDay := strDate[4:]
@@ -43,4 +44,9 @@ func ParseStrDate(strDate string) time.Time {
     loc, _ := time.LoadLocation("Asia/Seoul")
 
     return time.Date(nYear, tMonth, nDay, 0, 0, 0, 0, loc)
+}
+
+func nowStrDate() string {
+    now := time.Now()
+    return fmt.Sprintf("%02d%02d%02d", now.Year() - 2000, now.Month(), now.Day())
 }
