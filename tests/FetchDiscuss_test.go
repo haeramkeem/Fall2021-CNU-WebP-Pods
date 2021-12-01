@@ -8,7 +8,7 @@ import (
 )
 
 func TestFetchDiscuss(t *testing.T) {
-    res, err := service.FetchDiscuss("/problems/accounts-merge/", "")
+    res, err := service.FetchDiscuss("/problems/accounts-merge/", "all")
     check(err)
 
     if len(res) == 0 {

@@ -15,6 +15,7 @@ func FetchDiscuss(path, query string) ([]string, error) {
     ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
     defer cancel()
 
+    if query == "all" { query = "" }
     url := fmt.Sprintf("%s%sdiscuss/?currentPage=1&orderBy=hot&query=%s", BASE, path, query)
 
     // Get all attributes
