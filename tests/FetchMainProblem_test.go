@@ -8,12 +8,9 @@ import (
 )
 
 func TestFetchMainProblem(t *testing.T) {
-    res, err := service.FetchMain("211201")
-    check(err)
+    res := service.FetchMain("211201")
 
-    if res == "" {
-        t.Error("Want HTML, got nothing")
-    }
-
-    fmt.Println(res)
+    fmt.Println(res.Title)
+    fmt.Println(res.Link)
+    fmt.Println(res.Description)
 }

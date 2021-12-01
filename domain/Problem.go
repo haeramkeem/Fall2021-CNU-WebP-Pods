@@ -4,10 +4,10 @@ import (
     "gorm.io/gorm"
 )
 
-type Problem struct {
+type ProblemDB struct {
     gorm.Model
-    Date        int
-    Category    string
+    Date        string
+    Category    uint
     Title       string
     Link        string
     Description string

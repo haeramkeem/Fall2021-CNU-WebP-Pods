@@ -1,17 +1,13 @@
-/************************************************************************************
- * Use https://github.com/chromedp/chromedp to render JS                            *
- *                                                                                  *
- * Code Reference: https://github.com/chromedp/examples/blob/master/text/main.go    *
- ************************************************************************************/
-
 package service
 
 import (
 	"context"
     "fmt"
     "time"
+    "pods/domain"
+    "pods/modules/errors"
 
-	"github.com/chromedp/chromedp"
+	cdp "github.com/chromedp/chromedp"
 )
 
 func getDataValue(strDate string) string {
@@ -20,30 +16,40 @@ func getDataValue(strDate string) string {
     return fmt.Sprintf("a[data-value=\"%s %d 00:00:00 GMT+0900 (Korean Standard Time)\"]", prefix, t.Year())
 }
 
-func FetchMain(strDate string) (string, error) {
+func FetchMain(strDate string) *domain.ProblemDB {
 	// create context
-	ctx, cancel := chromedp.NewContext(context.Background())
+	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
     ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
     defer cancel()
 
     // Get an url path
-    var path string
-    for ok := false; !ok; {
-        err := chromedp.Run(ctx,
-            chromedp.Navigate(BASE + `/problemset/all`),
-            chromedp.AttributeValue(getDataValue(strDate), `href`, &path, &ok, chromedp.NodeVisible, chromedp.ByQuery),
+    path := ""
+    for ok := false; !ok && path == ""; {
+        err := cdp.Run(ctx,
+            cdp.Navigate(BASE + `/problemset/all`),
+            cdp.AttributeValue(getDataValue(strDate), `href`, &path, &ok, cdp.NodeVisible, cdp.ByQuery),
         )
-        if err != nil { return "", err }
+        errors.Check(err)
     }
 
     // Fetch problem content
-    var html string
-    err := chromedp.Run(ctx,
-        chromedp.Navigate(BASE + path),
-        chromedp.InnerHTML(`div.content__u3I1`, &html, chromedp.NodeVisible, chromedp.ByQuery),
-    )
-    if err != nil { return "", err }
+    html := ""
+    title := ""
+    for html == "" || title == "" {
+        err := cdp.Run(ctx,
+            cdp.Navigate(BASE + path),
+            cdp.InnerHTML(`div.content__u3I1`, &html, cdp.NodeVisible, cdp.ByQuery),
+            cdp.Text(`div[data-cy="question-title"]`, &title, cdp.NodeVisible, cdp.ByQuery),
+        )
+        errors.Check(err)
+    }
 
-    return html, nil
+    return &domain.ProblemDB{
+        Date: strDate,
+        Category: MAIN,
+        Title: title,
+        Link: BASE + path,
+        Description: html,
+    }
 }
