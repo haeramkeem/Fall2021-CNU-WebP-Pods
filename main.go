@@ -1,16 +1,15 @@
 package main
 
 import (
-	"log"
-    "pods/service"
-    _ "pods/controller"
+	"pods/controller"
+	"pods/modules/logging"
 )
 
 func main() {
-    logger := log.Default()
-	logger.Println("App started")
 
-    service.Fetch()
+    // Middlewares
+    logging.Init()
 
-    //controller.Routing()
+    // Start server
+    controller.Serve()
 }
