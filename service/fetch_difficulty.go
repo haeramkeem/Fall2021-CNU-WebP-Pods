@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"strings"
 	"time"
     "pods/domain"
     "pods/modules/errors"
@@ -10,13 +9,19 @@ import (
 	cdp "github.com/chromedp/chromedp"
 )
 
-var constantOf = map[string]uint{
-    "EASY":     EASY,
-    "MEDIUM":   MEDIUM,
-    "HARD":     HARD,
+var levelIdxToDifficulty = map[string]string{
+    "0":    "EASY",
+    "1":    "MEDIUM",
+    "2":    "HARD",
 }
 
-func FetchProblemByDifficulty(level string) *domain.ProblemDB {
+var levelIdxToConst = map[string]uint{
+    "0":    EASY,
+    "1":    MEDIUM,
+    "2":    HARD,
+}
+
+func FetchProblemByDifficulty(levelIdx string) *domain.ProblemDB {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
@@ -26,7 +31,7 @@ func FetchProblemByDifficulty(level string) *domain.ProblemDB {
 
     // Get an url path
     paths := make([]map[string]string, 0)
-    level = strings.ToUpper(level)
+    level := levelIdxToDifficulty[levelIdx]
 
 	err := cdp.Run(ctx,
 		cdp.Navigate(BASE + `/problemset/all/?difficulty=` + level + `&page=1`),
@@ -54,7 +59,7 @@ func FetchProblemByDifficulty(level string) *domain.ProblemDB {
 
     return &domain.ProblemDB{
         Date: nowStrDate(),
-        Category: constantOf[level],
+        Category: levelIdxToConst[levelIdx],
         Title: title,
         Link: BASE + path,
         Description: html,

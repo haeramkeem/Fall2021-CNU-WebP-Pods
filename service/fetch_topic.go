@@ -9,7 +9,7 @@ import (
 	cdp "github.com/chromedp/chromedp"
 )
 
-var urlify = map[string]string{
+var topicIdxToPath = map[string]string{
     "0":    "breadth-first-search/",
     "1":    "depth-first-search/",
     "2":    "dynamic-programming/",
@@ -21,7 +21,7 @@ var urlify = map[string]string{
     "8":    "string/",
 }
 
-var topicConstantOf = map[string]uint{
+var topicIdxToConst = map[string]uint{
     "0":    BFS,
     "1":    DFS,
     "2":    DP,
@@ -33,7 +33,7 @@ var topicConstantOf = map[string]uint{
     "8":    STRING,
 }
 
-func FetchProblemByTopic(topic string) *domain.ProblemDB {
+func FetchProblemByTopic(topicIdx string) *domain.ProblemDB {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
@@ -42,7 +42,7 @@ func FetchProblemByTopic(topic string) *domain.ProblemDB {
 
     // Get an url path
     nodes := make([]map[string]string, 0)
-    tag := urlify[topic]
+    tag := topicIdxToPath[topicIdx]
 
 	err := cdp.Run(ctx,
 		cdp.Navigate(BASE + `/tag/` + tag),
@@ -71,7 +71,7 @@ func FetchProblemByTopic(topic string) *domain.ProblemDB {
 
     return &domain.ProblemDB{
         Date: nowStrDate(),
-        Category: topicConstantOf[topic],
+        Category: topicIdxToConst[topicIdx],
         Title: title,
         Link: BASE + path,
         Description: html,
