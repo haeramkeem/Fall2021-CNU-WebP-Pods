@@ -16,6 +16,11 @@ import (
 
 var db *gorm.DB = nil
 
+/**
+ * Get connection with DB
+ * @return *gorm.DB: connection with DB
+ * @return error: generated error if exists
+ */
 func getDB() (*gorm.DB, error) {
     if db == nil {
         var err error
@@ -37,6 +42,11 @@ func getDB() (*gorm.DB, error) {
     return db, nil
 }
 
+/**
+ * Create problem record
+ * @params problem *domain.ProblemDB: target problem structure
+ * @return error: generated error if exists
+ */
 func CreateProblem(problem *ProblemDB) error {
     db, err := getDB()
     if err := e.Check(err); err != nil {
@@ -51,6 +61,14 @@ func CreateProblem(problem *ProblemDB) error {
     return nil
 }
 
+/**
+ * Select one problem from DB
+ *      one or less problem must be selected by combination of date & category
+ * @params date string: serving date of problem
+ * @params category uint: category of problem
+ * @return *domain.ProblemDB: selected record
+ * @return error: generated error if exists
+ */
 func SelectProblem(date string, category uint) (*ProblemDB, error) {
     db, err := getDB()
     if err := e.Check(err); err != nil {

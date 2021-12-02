@@ -1,5 +1,7 @@
 package service
 
+const BASE string = `https://leetcode.com`;
+
 const (
     MAIN            = 0
     EASY            = 1

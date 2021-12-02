@@ -15,6 +15,12 @@ var levelIdxToDifficulty = map[string]string{
     "2":    "HARD",
 }
 
+/**
+ * Fetch problem for requested difficulty from Leetcode.com
+ * @params levelIdx string: level of difficulty
+ * @return *domain.ProblemDB: structure for storing to DB
+ * @return error: generated error if exists
+ */
 func FetchProblemByDifficulty(levelIdx string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())

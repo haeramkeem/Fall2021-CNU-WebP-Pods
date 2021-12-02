@@ -7,6 +7,12 @@ import (
 	repo "pods/repository"
 )
 
+/**
+ * Get JSON-like structure of main problem from DB or Leetcode.com
+ * @params date string: requested problem's serving date
+ * @return *ProblemJSON: JSON-like structure
+ * @return error: generated error
+ */
 func GetMainProb(date string) (*ProblemJSON, error) {
     logging.Log("Request Main Problem of " + date)
 
@@ -37,6 +43,12 @@ func GetMainProb(date string) (*ProblemJSON, error) {
     }, nil
 }
 
+/**
+ * Get JSON-like structure of problem by difficulty from DB or Leetcode.com
+ * @params levelIdx string: level of difficulty. for more information, check service/constants.go
+ * @return *ProblemJSON: JSON-like structure
+ * @return error: generated error
+ */
 func GetDifficultyProb(levelIdx string) (*ProblemJSON, error) {
     logging.Log("Request Problem of Difficulty " + levelIdx)
 
@@ -67,6 +79,12 @@ func GetDifficultyProb(levelIdx string) (*ProblemJSON, error) {
     }, nil
 }
 
+/**
+ * Get JSON-like structure of problem by algorithm topic from DB or Leetcode.com
+ * @params topicIdx string: algorithm topic index. for more information, check service/constants.go
+ * @return *ProblemJSON: JSON-like structure
+ * @return error: generated error
+ */
 func GetTopicProb(topicIdx string) (*ProblemJSON, error) {
     logging.Log("Request Problem of Topic " + topicIdx)
 
@@ -97,6 +115,13 @@ func GetTopicProb(topicIdx string) (*ProblemJSON, error) {
     }, nil
 }
 
+/**
+ * Get JSON-like structure of discussions by problem path from Leetcode.com
+ * @params probpath string: problem path of Leetcode.com
+ * @params lang string: requested programming language
+ * @return *ProblemJSON: JSON-like structure
+ * @return error: generated error
+ */
 func GetDiscussion(probpath, lang string) (*DiscussionJSON, error) {
     return FetchDiscuss(`/problems/` + probpath, lang)
 }

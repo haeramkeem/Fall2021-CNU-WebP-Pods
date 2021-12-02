@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/**
+ * Start Server
+ * @params rootDir string: directory path for project root
+ */
 func Serve(rootDir string) {
 	router := gin.Default()
     staticDir := rootDir + "/ui/dist"
@@ -24,6 +28,10 @@ func Serve(rootDir string) {
     }
 }
 
+/**
+ * Register handlers for API path
+ * @params api *gin.RouterGroup: router to register
+ */
 func registerRouterGroup(api *gin.RouterGroup) {
     api.GET("/main/problem", getMainProblem)
     api.GET("/difficulty/problem", getDiffProblem)

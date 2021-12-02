@@ -22,6 +22,12 @@ var topicIdxToPath = map[string]string{
     "9":    "string/",
 }
 
+/**
+ * Fetch problem for requested algorithm topic from Leetcode.com and returns stucture for storing DB
+ * @params topicIdx string: topic index
+ * @return domain.ProblemDB: structure for storing DB
+ * @return error: generated error if exists
+ */
 func FetchProblemByTopic(topicIdx string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())

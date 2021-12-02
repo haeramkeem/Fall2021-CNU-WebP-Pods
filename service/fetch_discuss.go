@@ -11,12 +11,24 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
+/**
+ * Parse href string and convert it to title of discussion
+ * @params href string: href string
+ * @return string: title of discussion
+ */
 func hrefToTitle(href string) string {
     part := strings.Split(href, "/")
     last := part[len(part) - 1]
     return strings.ReplaceAll(strings.Join(strings.Split(last, "-"), " "), "%2B", "+")
 }
 
+/**
+ * Fetch discussions for requested problem and programming language and return JSON-like structure
+ * @params probpath string: requested problem path
+ * @params query string: requested programming language
+ * @return *domain.DiscussionJSON: JSON-like structure
+ * @return error: generated error if exists
+ */
 func FetchDiscuss(probpath, query string) (*DiscussionJSON, error) {
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())

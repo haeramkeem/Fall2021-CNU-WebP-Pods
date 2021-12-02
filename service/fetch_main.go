@@ -10,12 +10,23 @@ import (
 	cdp "github.com/chromedp/chromedp"
 )
 
+/**
+ * Parse YYMMDD string and convert it to CSS selector
+ * @params strDate string: YYMMDD string
+ * @return string: CSS Selector string
+ */
 func getDataValue(strDate string) string {
     t := parseStrDate(strDate)
     prefix := t.Format(time.RubyDate)[:10]
     return fmt.Sprintf("a[data-value=\"%s %d 00:00:00 GMT+0900 (Korean Standard Time)\"]", prefix, t.Year())
 }
 
+/**
+ * Fetch main problem from Leetcode.com and return structure for storing DB
+ * @params strDate string: YYMMDD string
+ * @return *domain.ProblemDB: structure for storing DB
+ * @return error: generated error if exists
+ */
 func FetchMain(strDate string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())

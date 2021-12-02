@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    // Configuration
+    // Get directory path for root of project
     root, _ := os.Getwd()
 
     // Start server
