@@ -5,8 +5,8 @@ const (
     EASY            = 1
     MEDIUM          = 2
     HARD            = 3
-    DFS             = 4
-    BFS             = 5
+    BFS             = 4
+    DFS             = 5
     DP              = 6
     TWO_POINTER     = 7
     SORT            = 8

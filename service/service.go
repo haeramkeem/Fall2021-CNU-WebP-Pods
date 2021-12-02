@@ -68,10 +68,32 @@ func GetDifficultyProb(levelIdx string) (*ProblemJSON, error) {
 }
 
 func GetTopicProb(topicIdx string) (*ProblemJSON, error) {
+    logging.Log("Request Problem of Topic " + topicIdx)
+
+    // Get Problem from DB
+    prob, err := repo.SelectProblem(nowStrDate(), topicIdxToConst[topicIdx])
+    if err := errors.Check(err); err != nil {
+        return nil, err
+    }
+
+    if prob == nil {
+        // Fetch Problem
+        prob, err = FetchProblemByTopic(topicIdx)
+        if err := errors.Check(err); err != nil {
+            return nil, err
+        }
+
+        // Save to DB
+        err = repo.CreateProblem(prob)
+        if err := errors.Check(err); err != nil {
+            return nil, err
+        }
+    }
+
     return &ProblemJSON{
-        Title: "testing title",
-        Link: "testing link",
-        Description: "testing description",
+        Title: prob.Title,
+        Link: prob.Link,
+        Description: prob.Description,
     }, nil
 }
 
