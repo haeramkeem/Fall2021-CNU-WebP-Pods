@@ -44,6 +44,8 @@ export default defineComponent({
          * @params date: string
          */
         onDateChanged(date: string): void {
+            this.discussion = {};
+            this.problem = {};
             axios.get("/api/main/problem?date=" + date)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
@@ -70,6 +72,7 @@ export default defineComponent({
          * @params lang: string, problemPath: string
          */
         fetchDiscussion(lang:string, problemPath: string): void {
+            this.discussion = {};
             axios.get(`/api/discussion/${problemPath}?lang=${lang}`)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;

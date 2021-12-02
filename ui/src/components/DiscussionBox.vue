@@ -23,7 +23,7 @@
                 </div>
             </h2>
         </div>
-        <article>
+        <article v-if="this.discussionReady">
             <div v-if="this.discussion.alt" class="fetch-nothing">
                 <h3 class="bebas-neue"><i class="bi bi-emoji-neutral-fill"></i> Damn! We can't fetch any discussions for this problem.</h3>
                 <a :href="this.discussion.alt" target="_blank" class="alt-link bebas-neue">Show me alternative link instead..</a>
@@ -36,17 +36,24 @@
                 </ul>
             </div>
         </article>
+        <article v-else>
+            <spinner-box/>
+        </article>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import td from 'typedef';
+import SpinnerBox from './SpinnerBox.vue'
 
 export default defineComponent({
     name: "DiscussionBox",
     props: {
         discussion: Object as PropType<td.DiscussionStruct>,
+    },
+    components: {
+        SpinnerBox,
     },
     methods: {
         /**
@@ -54,7 +61,15 @@ export default defineComponent({
          */
         onLanguageChanged(lang: string): void {
             this.$emit("langChanged", lang);
-        }
+        },
+    },
+    computed: {
+        discussionReady(): boolean {
+            if(this.discussion instanceof Object) {
+                return Object.keys(this.discussion).length > 0;
+            }
+            return false;
+        },
     },
 });
 </script>

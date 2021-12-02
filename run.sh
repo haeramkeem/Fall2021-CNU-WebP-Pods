@@ -13,6 +13,10 @@ case "$cmd" in
         go run main.go
         ;;
 
+    --dev)
+        cd ./ui && npm run build && cd .. && GIN_MODE=debug go run main.go
+        ;;
+
     # Build
     --build-ui)
         cd ./ui && npm run build

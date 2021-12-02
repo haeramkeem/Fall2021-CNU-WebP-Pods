@@ -49,6 +49,8 @@ export default defineComponent({
          * @params idx: number
          */
         onRadioClicked(idx: number): void {
+            this.problem = {};
+            this.discussion = {};
             axios.get("/api/difficulty/problem?level=" + idx)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
@@ -76,6 +78,7 @@ export default defineComponent({
          * @params lang: string, problemPath: string
          */
         fetchDiscussion(lang:string, problemPath: string): void {
+            this.discussion = {};
             axios.get(`/api/discussion/${problemPath}?lang=${lang}`)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
