@@ -9,42 +9,6 @@ import (
 
 func TestFetchDiscuss(t *testing.T) {
     res, err := service.FetchDiscuss("/problems/accounts-merge/", "all")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want discussion PATHs, got nothing")
-    }
-
-    fmt.Println("----- All -----")
-    fmt.Println(res)
-
-    res, err = service.FetchDiscuss("/problems/accounts-merge/", "cpp")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want discussion PATHs, got nothing")
-    }
-
-    fmt.Println("----- C++ -----")
-    fmt.Println(res)
-
-    res, err = service.FetchDiscuss("/problems/accounts-merge/", "python")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want discussion PATHs, got nothing")
-    }
-
-    fmt.Println("----- Python -----")
-    fmt.Println(res)
-
-    res, err = service.FetchDiscuss("/problems/accounts-merge/", "java")
-    check(err)
-
-    if len(res) == 0 {
-        t.Error("Want discussion PATHs, got nothing")
-    }
-
-    fmt.Println("----- Java -----")
-    fmt.Println(res)
+    if err != nil { t.Error(err) }
+    fmt.Println(*res)
 }

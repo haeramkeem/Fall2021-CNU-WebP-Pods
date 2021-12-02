@@ -2,13 +2,22 @@ package service
 
 import (
 	"context"
-    "fmt"
-    "time"
+	"fmt"
+	"strings"
+	"time"
+	. "pods/domain"
+    "pods/modules/errors"
 
 	"github.com/chromedp/chromedp"
 )
 
-func FetchDiscuss(probpath, query string) ([]string, error) {
+func hrefToTitle(href string) string {
+    part := strings.Split(href, "/")
+    last := part[len(part) - 1]
+    return strings.Join(strings.Split(last, "-"), " ")
+}
+
+func FetchDiscuss(probpath, query string) (*DiscussionJSON, error) {
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
@@ -24,12 +33,30 @@ func FetchDiscuss(probpath, query string) ([]string, error) {
 		chromedp.Navigate(url),
         chromedp.AttributesAll(`a.title-link__1ay5`, &res, chromedp.NodeVisible, chromedp.ByQueryAll),
 	)
-    if err != nil { return nil, err }
-
-    ret := make([]string, len(res))
-    for idx, el := range res {
-        ret[idx] = el["href"]
+    if err := errors.Check(err); err != nil {
+        return nil, err
     }
 
-    return ret, nil
+    // Set alternative link
+    alt := ""
+    if len(res) == 0 {
+        alt = url
+    }
+
+    // Set []DiscussionEntryJSON
+    entries := make([]DiscussionEntryJSON, 0)
+    for _, el := range res {
+        href, exs := el["href"]
+        if !exs { continue }
+        entry := DiscussionEntryJSON{
+            Title: hrefToTitle(href),
+            Link: href,
+        }
+        entries = append(entries, entry)
+    }
+
+    return &DiscussionJSON{
+        Alt: alt,
+        Links: entries,
+    }, nil
 }
