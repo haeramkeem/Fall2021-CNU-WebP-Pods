@@ -16,23 +16,23 @@ func sendResponse(ctx *gin.Context, err error, content interface{}) {
 
 func getMainProblem(ctx *gin.Context) {
     date := ctx.Query("date") 
-    problem := GetMainProb(date)
+    problem, err := GetMainProb(date)
 
-    sendResponse(ctx, nil, problem)
+    sendResponse(ctx, err, problem)
 }
 
 func getDiffProblem(ctx *gin.Context) {
     level := ctx.Query("level")
-    problem := GetDifficultyProb(level)
+    problem, err := GetDifficultyProb(level)
 
-    sendResponse(ctx, nil, problem)
+    sendResponse(ctx, err, problem)
 }
 
 func getTopicProblem(ctx *gin.Context) {
     topic := ctx.Query("topic")
-    problem := GetTopicProb(topic)
+    problem, err := GetTopicProb(topic)
 
-    sendResponse(ctx, nil, problem)
+    sendResponse(ctx, err, problem)
 }
 
 
