@@ -35,6 +35,7 @@ export default defineComponent({
         return {
             problem: {} as td.ProblemStruct,
             discussion: {} as td.DiscussionStruct,
+            selectedLang: "all",
         };
     },
     methods: {
@@ -50,17 +51,26 @@ export default defineComponent({
                     throw new Error(data.error);
                 } else {
                     this.problem = data.content as td.ProblemStruct;
+                    this.fetchDiscussion(this.selectedLang, this.parseProblemPath());
                 }
             }).catch((err) => {
                 alert(err);
             });
         },
         /**
-         * GET discussion for selected language
+         * GET discussion when language changed
          * @params lang: string
          */
         onLanguageChanged(lang: string): void {
-            axios.get("/api/main/discussion?lang=" + lang)
+            this.selectedLang = lang;
+            this.fetchDiscussion(lang, this.parseProblemPath());
+        },
+        /**
+         * GET discussion by selected language & problem
+         * @params lang: string, problemPath: string
+         */
+        fetchDiscussion(lang:string, problemPath: string): void {
+            axios.get(`/api/discussion/${problemPath}?lang=${lang}`)
             .then((resp) => {
                 const data = resp.data as td.ResponseStruct;
                 if(typeof data.error === "string") {
@@ -72,6 +82,15 @@ export default defineComponent({
                 alert(err);
             });
         },
+        /**
+         * Parse problem path from problem link
+         * @return string
+         */
+        parseProblemPath(): string {
+            const urlPart = this.problem.link.split("/");
+            const len = urlPart.length;
+            return urlPart[len - 1].length === 0 ? urlPart[len - 2] : urlPart[len - 1];
+        }
     },
 });
 </script>

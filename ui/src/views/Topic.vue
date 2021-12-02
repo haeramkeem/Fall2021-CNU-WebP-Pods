@@ -40,26 +40,10 @@ export default defineComponent({
             selectedTopic: 0,
             problem: {} as td.ProblemStruct,
             discussion: {} as td.DiscussionStruct,
+            selectedLang: "all",
         };
     },
     methods: {
-        /**
-         * GET discussion for selected language
-         * @params lang: string
-         */
-        onLanguageChanged(lang: string): void {
-            axios.get("/api/topic/discussion?lang=" + lang)
-            .then((resp) => {
-                const data = resp.data as td.ResponseStruct;
-                if(typeof data.error === "string") {
-                    throw new Error(data.error);
-                } else {
-                    this.discussion = data.content as td.DiscussionStruct;
-                }
-            }).catch((err) => {
-                alert(err);
-            });
-        },
         /**
          * GET problem for selected topic
          * @params idx: number
@@ -72,12 +56,47 @@ export default defineComponent({
                     throw new Error(data.error);
                 } else {
                     this.problem = data.content as td.ProblemStruct;
+                    this.fetchDiscussion(this.selectedLang, this.parseProblemPath());
                 }
             }).catch((err) => {
                 alert(err);
             });
             this.selectedTopic = idx;
         },
+        /**
+         * GET discussion when language changed
+         * @params lang: string
+         */
+        onLanguageChanged(lang: string): void {
+            this.selectedLang = lang;
+            this.fetchDiscussion(lang, this.parseProblemPath());
+        },
+        /**
+         * GET discussion by selected language & problem
+         * @params lang: string, problemPath: string
+         */
+        fetchDiscussion(lang:string, problemPath: string): void {
+            axios.get(`/api/discussion/${problemPath}?lang=${lang}`)
+            .then((resp) => {
+                const data = resp.data as td.ResponseStruct;
+                if(typeof data.error === "string") {
+                    throw new Error(data.error);
+                } else {
+                    this.discussion = data.content as td.DiscussionStruct;
+                }
+            }).catch((err) => {
+                alert(err);
+            });
+        },
+        /**
+         * Parse problem path from problem link
+         * @return string
+         */
+        parseProblemPath(): string {
+            const urlPart = this.problem.link.split("/");
+            const len = urlPart.length;
+            return urlPart[len - 1].length === 0 ? urlPart[len - 2] : urlPart[len - 1];
+        }
     },
     created(): void {
         // Init page with first radio item clicked

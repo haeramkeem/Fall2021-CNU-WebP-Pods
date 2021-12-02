@@ -60,7 +60,7 @@ There are no valid words for "gaswxyz" cause none of the words in the list conta
         return [200, body];
     });
 
-    mock.onGet(/\/api\/main\/discussion.*/).reply((req) => {
+    mock.onGet(/\/api\/discussion.*/).reply((req) => {
         console.log("[Mock:Req]" + req.url);
         const body = {
         error: null,

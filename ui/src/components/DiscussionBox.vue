@@ -56,10 +56,6 @@ export default defineComponent({
             this.$emit("langChanged", lang);
         }
     },
-    created(): void {
-        // Init selected langauge to "all"
-        this.$emit("langChanged", "all");
-    },
 });
 </script>
 
