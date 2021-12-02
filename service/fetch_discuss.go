@@ -8,7 +8,7 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func FetchDiscuss(path, query string) ([]string, error) {
+func FetchDiscuss(probpath, query string) ([]string, error) {
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
@@ -16,7 +16,7 @@ func FetchDiscuss(path, query string) ([]string, error) {
     defer cancel()
 
     if query == "all" { query = "" }
-    url := fmt.Sprintf("%s%sdiscuss/?currentPage=1&orderBy=hot&query=%s", BASE, path, query)
+    url := fmt.Sprintf("%s%sdiscuss/?currentPage=1&orderBy=hot&query=%s", BASE, probpath, query)
 
     // Get all attributes
     res := make([]map[string]string, 0)

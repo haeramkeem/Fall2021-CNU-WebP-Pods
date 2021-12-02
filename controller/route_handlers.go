@@ -16,21 +16,21 @@ func sendResponse(ctx *gin.Context, err error, content interface{}) {
 
 func getMainProblem(ctx *gin.Context) {
     date := ctx.Query("date") 
-    problem := ProblemMock(date)
+    problem := GetMainProb(date)
 
     sendResponse(ctx, nil, problem)
 }
 
 func getDiffProblem(ctx *gin.Context) {
     level := ctx.Query("level")
-    problem := ProblemMock(level)
+    problem := GetDifficultyProb(level)
 
     sendResponse(ctx, nil, problem)
 }
 
 func getTopicProblem(ctx *gin.Context) {
     topic := ctx.Query("topic")
-    problem := ProblemMock(topic)
+    problem := GetTopicProb(topic)
 
     sendResponse(ctx, nil, problem)
 }
@@ -40,7 +40,7 @@ func getDiscussion(ctx *gin.Context) {
     problemPath := ctx.Param("probpath")
     lang := ctx.Query("lang")
 
-    discussion := DiscussionMock(problemPath, lang)
+    discussion := GetDiscussion(problemPath, lang)
 
     sendResponse(ctx, nil, discussion)
 }
