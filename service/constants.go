@@ -2,18 +2,18 @@ package service
 
 const (
     MAIN            = 0
-    EASY
-    MEDIUM
-    HARD
-    DFS
-    BFS
-    DP
-    TWO_POINTER
-    SORT
-    BINARY_SEARCH
-    TREE
-    HEAP
-    STRING
+    EASY            = 1
+    MEDIUM          = 2
+    HARD            = 3
+    DFS             = 4
+    BFS             = 5
+    DP              = 6
+    TWO_POINTER     = 7
+    SORT            = 8
+    BINARY_SEARCH   = 9
+    TREE            = 10
+    HEAP            = 11
+    STRING          = 12
 )
 
 var levelIdxToConst = map[string]uint{
