@@ -14,6 +14,10 @@ case "$cmd" in
         ;;
 
     # Build
+    --build-ui)
+        cd ./ui && npm run build
+        ;;
+
     --build-amd64)
         env GOOS=linux GOARCH=amd64 go build -o pods_amd64
         ;;

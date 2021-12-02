@@ -1,11 +1,18 @@
 package controller
 
 import (
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
-func Serve() error {
-	router := gin.New()
+func Serve(rootDir string) error {
+	router := gin.Default()
+    staticDir := rootDir + "/ui/dist"
+
+    router.Use(static.Serve("/", static.LocalFile(staticDir, true)))
+    router.NoRoute(func(c *gin.Context) {
+        c.File(staticDir + "/index.html")
+    })
 
     api := router.Group("/api")
     registerRouterGroup(api)
