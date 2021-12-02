@@ -14,7 +14,7 @@ import (
 func hrefToTitle(href string) string {
     part := strings.Split(href, "/")
     last := part[len(part) - 1]
-    return strings.Join(strings.Split(last, "-"), " ")
+    return strings.ReplaceAll(strings.Join(strings.Split(last, "-"), " "), "%2B", "+")
 }
 
 func FetchDiscuss(probpath, query string) (*DiscussionJSON, error) {
@@ -50,7 +50,7 @@ func FetchDiscuss(probpath, query string) (*DiscussionJSON, error) {
         if !exs { continue }
         entry := DiscussionEntryJSON{
             Title: hrefToTitle(href),
-            Link: href,
+            Link: BASE + href,
         }
         entries = append(entries, entry)
     }
