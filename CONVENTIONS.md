@@ -5,6 +5,7 @@
 * **develop** : Developing branch
 * **Feature/...** : Feature branchs
 * **Refactor/...** : Refactoring whole code
+* **Fix/...** : Bug fix
 
 ## Commit Naming
 * **feat: ...** : Add new features
