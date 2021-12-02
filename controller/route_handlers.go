@@ -40,7 +40,7 @@ func getDiscussion(ctx *gin.Context) {
     problemPath := ctx.Param("probpath")
     lang := ctx.Query("lang")
 
-    discussion := GetDiscussion(problemPath, lang)
+    discussion, err := GetDiscussion(problemPath, lang)
 
-    sendResponse(ctx, nil, discussion)
+    sendResponse(ctx, err, discussion)
 }

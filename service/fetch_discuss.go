@@ -25,7 +25,7 @@ func FetchDiscuss(probpath, query string) (*DiscussionJSON, error) {
     defer cancel()
 
     if query == "all" { query = "" }
-    url := fmt.Sprintf("%s%sdiscuss/?currentPage=1&orderBy=hot&query=%s", BASE, probpath, query)
+    url := fmt.Sprintf("%s%s/discuss/?currentPage=1&orderBy=hot&query=%s", BASE, probpath, query)
 
     // Get all attributes
     res := make([]map[string]string, 0)

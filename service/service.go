@@ -1,7 +1,6 @@
 package service
 
 import (
-    "fmt"
     . "pods/domain"
 )
 
@@ -29,11 +28,6 @@ func GetTopicProb(topicIdx string) *ProblemJSON {
     }
 }
 
-func GetDiscussion(probpath, lang string) *DiscussionJSON {
-    return &DiscussionJSON{
-        Alt: "testing alt",
-        Links: []DiscussionEntryJSON{
-            { Title: "testing title", Link: fmt.Sprint(probpath, lang) },
-        },
-    }
+func GetDiscussion(probpath, lang string) (*DiscussionJSON, error) {
+    return FetchDiscuss(`/problems/` + probpath, lang)
 }
