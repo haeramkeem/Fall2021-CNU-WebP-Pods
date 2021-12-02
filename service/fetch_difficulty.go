@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
     "pods/domain"
-    "pods/modules/errors"
+    e "pods/modules/errors"
 
 	cdp "github.com/chromedp/chromedp"
 )
@@ -21,7 +21,7 @@ var levelIdxToConst = map[string]uint{
     "2":    HARD,
 }
 
-func FetchProblemByDifficulty(levelIdx string) *domain.ProblemDB {
+func FetchProblemByDifficulty(levelIdx string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
@@ -38,10 +38,14 @@ func FetchProblemByDifficulty(levelIdx string) *domain.ProblemDB {
         cdp.WaitVisible(`nav>button.pointer-events-none`, cdp.NodeVisible, cdp.ByQuery),
         cdp.AttributesAll(`div[class="jsx-784799233 overflow-hidden"]:last-child a[href]`, &paths, cdp.NodeVisible, cdp.ByQueryAll),
 	)
-    errors.Check(err)
+    if err := e.Check(err); err != nil {
+        return nil, err;
+    }
 
     idx, err := getRand(len(paths))
-    errors.Check(err)
+    if err := e.Check(err); err != nil {
+        return nil, err;
+    }
 
     path := paths[idx]["href"]
 
@@ -54,7 +58,9 @@ func FetchProblemByDifficulty(levelIdx string) *domain.ProblemDB {
             cdp.InnerHTML(`div.content__u3I1`, &html, cdp.NodeVisible, cdp.ByQuery),
             cdp.Text(`div[data-cy="question-title"]`, &title, cdp.NodeVisible, cdp.ByQuery),
         )
-        errors.Check(err)
+        if err := e.Check(err); err != nil {
+            return nil, err;
+        }
     }
 
     return &domain.ProblemDB{
@@ -63,5 +69,5 @@ func FetchProblemByDifficulty(levelIdx string) *domain.ProblemDB {
         Title: title,
         Link: BASE + path,
         Description: html,
-    }
+    }, nil
 }

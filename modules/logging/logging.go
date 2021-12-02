@@ -1,23 +1,34 @@
+/********************************************
+ * Use standard log library for logging     *
+ *                                          *
+ * ref: https://pkg.go.dev/log              *
+ ********************************************/
+
 package logging
 
 import (
 	"log"
+	"os"
 )
 
 var logger *log.Logger = nil
+var warner *log.Logger = nil
 
-func Init() {
+func setLogger() {
     if logger == nil {
-        logger = log.Default()
+        logger = log.New(os.Stdout, "[LOG] ", log.LstdFlags)
+    }
+    if warner == nil {
+        warner = log.New(os.Stdout, "[WARN] ", log.Llongfile)
     }
 }
 
 func Log(v ...interface{}) {
-    Init()
+    setLogger()
     logger.Println(v...)
 }
 
-func Fatal(v ...interface{}) {
-    Init()
-    logger.Fatalln(v...)
+func Warn(v ...interface{}) {
+    setLogger()
+    warner.Println(v...)
 }

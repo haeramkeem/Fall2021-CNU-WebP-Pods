@@ -8,7 +8,9 @@ import (
 )
 
 func TestFetchProblemByDifficulty(t *testing.T) {
-    res := service.FetchProblemByDifficulty("0")
+    res, err := service.FetchProblemByDifficulty("0")
+
+    if err != nil { t.Error(err) }
 
     fmt.Println(res.Date);
     fmt.Println(res.Title)

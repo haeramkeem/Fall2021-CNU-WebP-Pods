@@ -4,8 +4,10 @@ import (
 	"pods/modules/logging"
 )
 
-func Check(err error) {
+func Check(err error) error {
     if err != nil {
-        logging.Fatal(err)
+        logging.Warn(err)
+        return err
     }
+    return nil
 }

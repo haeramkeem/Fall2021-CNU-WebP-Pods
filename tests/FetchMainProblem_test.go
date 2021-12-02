@@ -8,7 +8,9 @@ import (
 )
 
 func TestFetchMainProblem(t *testing.T) {
-    res := service.FetchMain("211201")
+    res, err := service.FetchMain("211201")
+
+    if err != nil { t.Error(err) }
 
     fmt.Println(res.Title)
     fmt.Println(res.Link)

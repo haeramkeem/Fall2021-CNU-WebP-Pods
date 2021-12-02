@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
     "pods/domain"
-    "pods/modules/errors"
+    e "pods/modules/errors"
 
 	cdp "github.com/chromedp/chromedp"
 )
@@ -33,7 +33,7 @@ var topicIdxToConst = map[string]uint{
     "8":    STRING,
 }
 
-func FetchProblemByTopic(topicIdx string) *domain.ProblemDB {
+func FetchProblemByTopic(topicIdx string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())
 	defer cancel()
@@ -48,12 +48,16 @@ func FetchProblemByTopic(topicIdx string) *domain.ProblemDB {
 		cdp.Navigate(BASE + `/tag/` + tag),
         cdp.AttributesAll(`div.title-cell__ZGos>*:last-child`, &nodes, cdp.NodeVisible, cdp.ByQueryAll),
 	)
-    errors.Check(err)
+    if err := e.Check(err); err != nil {
+        return nil, err
+    }
 
     path := ""
     for exs := false; !exs || path == ""; {
         idx, err := getRand(len(nodes))
-        errors.Check(err)
+        if err := e.Check(err); err != nil {
+            return nil, err
+        }
         path, exs = nodes[idx]["href"]
     }
 
@@ -66,7 +70,9 @@ func FetchProblemByTopic(topicIdx string) *domain.ProblemDB {
             cdp.InnerHTML(`div.content__u3I1`, &html, cdp.NodeVisible, cdp.ByQuery),
             cdp.Text(`div[data-cy="question-title"]`, &title, cdp.NodeVisible, cdp.ByQuery),
         )
-        errors.Check(err)
+        if err := e.Check(err); err != nil {
+            return nil, err
+        }
     }
 
     return &domain.ProblemDB{
@@ -75,5 +81,5 @@ func FetchProblemByTopic(topicIdx string) *domain.ProblemDB {
         Title: title,
         Link: BASE + path,
         Description: html,
-    }
+    }, nil
 }

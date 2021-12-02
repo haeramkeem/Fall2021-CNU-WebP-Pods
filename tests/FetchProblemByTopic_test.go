@@ -8,7 +8,11 @@ import (
 )
 
 func TestFetchProblemByTopic(t *testing.T) {
-    res := service.FetchProblemByTopic("0")
+    res, err := service.FetchProblemByTopic("0")
+
+    if err != nil {
+        t.Error(err)
+    }
 
     fmt.Println(res.Title)
     fmt.Println(res.Link)
