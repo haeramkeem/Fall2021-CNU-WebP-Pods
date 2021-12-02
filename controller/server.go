@@ -16,9 +16,7 @@ func Serve() error {
 
 func registerRouterGroup(api *gin.RouterGroup) {
     api.GET("/main/problem", getMainProblem)
-    api.GET("/main/discussion", getMainDiscuss)
     api.GET("/difficulty/problem", getDiffProblem)
-    api.GET("/difficulty/discussion", getDiffDiscuss)
     api.GET("/topic/problem", getTopicProblem)
-    api.GET("/topic/discussion", getTopicDiscuss)
+    api.GET("/discussion/:probpath", getDiscussion)
 }

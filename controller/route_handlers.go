@@ -15,46 +15,32 @@ func sendResponse(ctx *gin.Context, err error, content interface{}) {
 }
 
 func getMainProblem(ctx *gin.Context) {
-    date := ctx.DefaultQuery("date", "default date")
+    date := ctx.Query("date") 
     problem := ProblemMock(date)
 
     sendResponse(ctx, nil, problem)
 }
 
-func getMainDiscuss(ctx *gin.Context) {
-    date := ctx.DefaultQuery("date", "default date")
-    lang := ctx.DefaultQuery("lang", "default language")
-    discuss := DiscussionMock(date, lang)
-
-    sendResponse(ctx, nil, discuss)
-}
-
 func getDiffProblem(ctx *gin.Context) {
-    level := ctx.DefaultQuery("level", "default level")
+    level := ctx.Query("level")
     problem := ProblemMock(level)
 
     sendResponse(ctx, nil, problem)
 }
 
-func getDiffDiscuss(ctx *gin.Context) {
-    level := ctx.DefaultQuery("level", "default level")
-    lang := ctx.DefaultQuery("lang", "default language")
-    discuss := DiscussionMock(level, lang)
-
-    sendResponse(ctx, nil, discuss)
-}
-
 func getTopicProblem(ctx *gin.Context) {
-    topic := ctx.DefaultQuery("topic", "default topic")
+    topic := ctx.Query("topic")
     problem := ProblemMock(topic)
 
     sendResponse(ctx, nil, problem)
 }
 
-func getTopicDiscuss(ctx *gin.Context) {
-    topic := ctx.DefaultQuery("topic", "default topic")
-    lang := ctx.DefaultQuery("lang", "default language")
-    discuss := DiscussionMock(topic, lang)
 
-    sendResponse(ctx, nil, discuss)
+func getDiscussion(ctx *gin.Context) {
+    problemPath := ctx.Param("probpath")
+    lang := ctx.Query("lang")
+
+    discussion := DiscussionMock(problemPath, lang)
+
+    sendResponse(ctx, nil, discussion)
 }
