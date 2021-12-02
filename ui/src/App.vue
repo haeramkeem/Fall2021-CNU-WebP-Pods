@@ -21,9 +21,6 @@
         <main>
             <router-view></router-view>
         </main>
-        <footer class="fira-sans font-bold">
-            copyright©saltwalks2021
-        </footer>
     </div>
 </template>
 
@@ -87,14 +84,5 @@ main {
         font-size: 24px;
         color: white;
     }
-}
-
-footer {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: lightgray;
-    position: fixed;
-    top: calc(100% - 20px);
 }
 </style>
