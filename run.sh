@@ -23,7 +23,16 @@ case "$cmd" in
         ;;
 
     --build-amd64)
-        env GOOS=linux GOARCH=amd64 go build -o pods_amd64
+        env GOOS=linux GOARCH=amd64 go build -o pods_amd64.out
+        ;;
+
+    --build)
+        cd ./ui && npm run build && cd .. && go build -o pods.out
+        ;;
+
+    # Deploy
+    --release)
+        ./repository/db.sh --rm && ./repository/db.sh --up && GIN_MODE=release ./pods.out
         ;;
 
     # Unexpected

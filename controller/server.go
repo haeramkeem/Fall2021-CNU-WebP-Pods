@@ -1,11 +1,12 @@
 package controller
 
 import (
+    "pods/modules/logging"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
-func Serve(rootDir string) error {
+func Serve(rootDir string) {
 	router := gin.Default()
     staticDir := rootDir + "/ui/dist"
 
@@ -17,8 +18,10 @@ func Serve(rootDir string) error {
     api := router.Group("/api")
     registerRouterGroup(api)
 
-	router.Run()
-    return nil
+    logging.Log("Start PODs")
+    if err := router.Run(); err != nil {
+        panic(err)
+    }
 }
 
 func registerRouterGroup(api *gin.RouterGroup) {
