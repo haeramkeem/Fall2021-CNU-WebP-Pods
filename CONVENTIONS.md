@@ -13,3 +13,4 @@
 * **refactor: ...** : Refactor code
 * **style: ...** : Reformat code
 * **test: ...** : Add test codes
+* **proto: ...** : Add prototype codes
