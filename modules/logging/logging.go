@@ -1,9 +1,3 @@
-/********************************************
- * Use standard log library for logging     *
- *                                          *
- * ref: https://pkg.go.dev/log              *
- ********************************************/
-
 package logging
 
 import (

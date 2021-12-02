@@ -4,6 +4,8 @@ Problems Of the Day : Recommend new algorithm problems everyday
   
 By scrapping online judge websites like [Baekjoon](https://www.acmicpc.net) and [Leetcode](https://leetcode.com), we recommand one problem daily.
 
+Page design is inspired by [CrossFit](https://www.crossfit.com)
+
 ## Screenshot
 ![Screenshot](./docs/images/screenshot.png)
 
