@@ -10,10 +10,11 @@ const (
     DP              = 6
     TWO_POINTER     = 7
     SORT            = 8
-    BINARY_SEARCH   = 9
-    TREE            = 10
-    HEAP            = 11
-    STRING          = 12
+    GREEDY          = 9
+    BINARY_SEARCH   = 10
+    TREE            = 11
+    HEAP            = 12
+    STRING          = 13
 )
 
 var levelIdxToConst = map[string]uint{
@@ -28,8 +29,9 @@ var topicIdxToConst = map[string]uint{
     "2":    DP,
     "3":    TWO_POINTER,
     "4":    SORT,
-    "5":    BINARY_SEARCH,
-    "6":    TREE,
-    "7":    HEAP,
-    "8":    STRING,
+    "5":    GREEDY,
+    "6":    BINARY_SEARCH,
+    "7":    TREE,
+    "8":    HEAP,
+    "9":    STRING,
 }

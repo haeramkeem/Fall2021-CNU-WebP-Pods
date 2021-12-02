@@ -15,10 +15,11 @@ var topicIdxToPath = map[string]string{
     "2":    "dynamic-programming/",
     "3":    "two-pointers/",
     "4":    "sorting/",
-    "5":    "binary-search/",
-    "6":    "tree/",
-    "7":    "heap-priority-queue/",
-    "8":    "string/",
+    "5":    "greedy/",
+    "6":    "binary-search/",
+    "7":    "tree/",
+    "8":    "heap-priority-queue/",
+    "9":    "string/",
 }
 
 func FetchProblemByTopic(topicIdx string) (*domain.ProblemDB, error) {

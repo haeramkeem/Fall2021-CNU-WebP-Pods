@@ -8,7 +8,7 @@ import (
 )
 
 func TestFetchProblemByTopic(t *testing.T) {
-    res, err := service.FetchProblemByTopic("0")
+    res, err := service.FetchProblemByTopic("8")
 
     if err != nil {
         t.Error(err)
