@@ -15,12 +15,6 @@ var levelIdxToDifficulty = map[string]string{
     "2":    "HARD",
 }
 
-var levelIdxToConst = map[string]uint{
-    "0":    EASY,
-    "1":    MEDIUM,
-    "2":    HARD,
-}
-
 func FetchProblemByDifficulty(levelIdx string) (*domain.ProblemDB, error) {
 	// create context
 	ctx, cancel := cdp.NewContext(context.Background())
