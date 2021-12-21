@@ -36,7 +36,7 @@ func FetchProblemByDifficulty(levelIdx string) (*domain.ProblemDB, error) {
 	err := cdp.Run(ctx,
 		cdp.Navigate(BASE + `/problemset/all/?difficulty=` + level + `&page=1`),
         cdp.WaitVisible(`nav>button.pointer-events-none`, cdp.NodeVisible, cdp.ByQuery),
-        cdp.AttributesAll(`div[class="jsx-784799233 overflow-hidden"]:last-child a[href]`, &paths, cdp.NodeVisible, cdp.ByQueryAll),
+        cdp.AttributesAll(`div[class="truncate overflow-hidden"]:last-child a[href]`, &paths, cdp.NodeVisible, cdp.ByQueryAll),
 	)
     if err := e.Check(err); err != nil {
         return nil, err;
