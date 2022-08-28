@@ -1,4 +1,6 @@
-# PODs
+# DISCLAIMER: The PODs project is reached End-of-Life and no longer maintained since Aug 28, 2022.
+
+## PODs
 ![Banner](./docs/images/banner.png)   
 Problems Of the Day : Recommend new algorithm problems everyday  
   
